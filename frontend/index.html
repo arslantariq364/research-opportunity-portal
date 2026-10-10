@@ -22,8 +22,8 @@
          Top Navigation Bar
          ====================================================================== -->
     <header>
-        <nav class="portal-navbar py-2 px-3 px-md-4">
-            <div class="container-xl d-flex align-items-center justify-content-between flex-wrap gap-2">
+        <nav class="portal-navbar py-2">
+            <div class="portal-container d-flex align-items-center justify-content-between flex-wrap gap-2">
                 <!-- Brand & Logo -->
                 <a href="/portal" class="portal-brand" id="brand-link">
                     <div class="brand-icon">
@@ -52,7 +52,7 @@
     <!-- ======================================================================
          Main Content Area
          ====================================================================== -->
-    <main class="container-xl my-4">
+    <main class="portal-container my-3 my-md-4">
 
         <!-- Hero Header -->
         <section class="dashboard-hero d-flex align-items-md-center justify-content-between flex-column flex-md-row gap-3">
@@ -114,9 +114,9 @@
 
         <!-- Filter & Search Control Toolbar -->
         <section class="control-bar" aria-label="Search and Filter Controls">
-            <div class="row g-2 align-items-center">
+            <div class="control-bar-grid">
                 <!-- Search Input -->
-                <div class="col-12 col-md-4">
+                <div class="control-item search-control-item">
                     <div class="search-input-group">
                         <i class="bi bi-search search-icon"></i>
                         <input type="text" id="search-input" class="search-input" placeholder="Search by title, faculty, skills..." autocomplete="off">
@@ -124,22 +124,22 @@
                 </div>
 
                 <!-- Department Filter -->
-                <div class="col-6 col-md-2">
+                <div class="control-item">
                     <select id="filter-department" class="form-select filter-select" aria-label="Filter by department">
                         <option value="">All Departments</option>
                     </select>
                 </div>
 
                 <!-- Research Area Filter -->
-                <div class="col-6 col-md-2">
+                <div class="control-item">
                     <select id="filter-area" class="form-select filter-select" aria-label="Filter by research area">
                         <option value="">All Areas</option>
                     </select>
                 </div>
 
                 <!-- Status Filter Pills -->
-                <div class="col-12 col-md-3 d-flex justify-content-md-center">
-                    <div class="status-pill-group w-100 justify-content-center" role="group" aria-label="Filter by status">
+                <div class="control-item status-control-item">
+                    <div class="status-pill-group" role="group" aria-label="Filter by status">
                         <button type="button" class="status-pill-btn active" data-status="all">All</button>
                         <button type="button" class="status-pill-btn" data-status="Open">Open</button>
                         <button type="button" class="status-pill-btn" data-status="Closed">Closed</button>
@@ -147,8 +147,8 @@
                 </div>
 
                 <!-- Sort By Selector -->
-                <div class="col-12 col-md-1 d-flex justify-content-end">
-                    <select id="sort-by" class="form-select filter-select w-100" aria-label="Sort opportunities">
+                <div class="control-item">
+                    <select id="sort-by" class="form-select filter-select" aria-label="Sort opportunities">
                         <option value="newest">Newest</option>
                         <option value="deadline">Deadline</option>
                         <option value="positions">Positions</option>
@@ -518,7 +518,7 @@
          Footer
          ====================================================================== -->
     <footer class="portal-footer">
-        <div class="container-xl d-flex align-items-center justify-content-between flex-wrap gap-2 text-center text-md-start">
+        <div class="portal-container d-flex align-items-center justify-content-between flex-wrap gap-2 text-center text-md-start">
             <div>
                 &copy; 2026 University Research Opportunity Portal &bull; Academic SaaS Interface
             </div>

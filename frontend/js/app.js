@@ -346,6 +346,10 @@ function renderOpportunityCards() {
 
     if (emptyState) emptyState.classList.add('d-none');
 
+    // Dynamically balance grid layout when 2 or 1 items are displayed
+    grid.classList.toggle('has-2-items', state.filteredOpportunities.length === 2);
+    grid.classList.toggle('has-1-item', state.filteredOpportunities.length === 1);
+
     grid.innerHTML = state.filteredOpportunities.map(opp => createCardHTML(opp)).join('');
 
     // Attach card event listeners

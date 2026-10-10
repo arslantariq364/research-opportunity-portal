@@ -54,6 +54,34 @@
 }
 
 /* ==========================================================================
+   Fluid Dashboard Container Layout (90-95% screen width utilization)
+   ========================================================================== */
+.portal-container {
+    width: 94%;
+    max-width: 1720px;
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: 0.75rem;
+    padding-right: 0.75rem;
+}
+
+@media (min-width: 1400px) {
+    .portal-container {
+        width: 92%;
+        padding-left: 1.25rem;
+        padding-right: 1.25rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .portal-container {
+        width: 100%;
+        padding-left: 1rem;
+        padding-right: 1rem;
+    }
+}
+
+/* ==========================================================================
    Base & Global Styles
    ========================================================================== */
 *, *::before, *::after {
@@ -182,38 +210,38 @@ main {
    Hero Section
    ========================================================================== */
 .dashboard-hero {
-    padding: 2.25rem 0 1.5rem;
+    padding: 1.25rem 0 0.85rem;
 }
 
 .hero-title {
     font-weight: 800;
-    font-size: 1.85rem;
+    font-size: 1.8rem;
     letter-spacing: -0.03em;
     color: var(--slate-900);
-    margin-bottom: 0.35rem;
+    margin-bottom: 0.25rem;
 }
 
 .hero-subtitle {
-    font-size: 0.95rem;
+    font-size: 0.92rem;
     color: var(--slate-600);
-    max-width: 650px;
+    max-width: 720px;
 }
 
 /* ==========================================================================
-   Real-Time Metrics Overview Cards
+   Real-Time Metrics Overview Cards (4 evenly distributed columns)
    ========================================================================== */
 .stats-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
-    gap: 1rem;
-    margin-bottom: 1.75rem;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1.15rem;
+    margin-bottom: 1.35rem;
 }
 
 .stat-card {
     background: #ffffff;
     border: 1px solid var(--slate-200);
     border-radius: var(--radius-lg);
-    padding: 1.15rem 1.25rem;
+    padding: 1.05rem 1.2rem;
     box-shadow: var(--card-shadow);
     display: flex;
     align-items: center;
@@ -274,21 +302,35 @@ main {
 }
 
 /* ==========================================================================
-   Search & Filter Control Bar
+   Search & Filter Control Bar (Proportional Fluid Distribution)
    ========================================================================== */
 .control-bar {
     background: #ffffff;
     border: 1px solid var(--slate-200);
     border-radius: var(--radius-lg);
-    padding: 1rem 1.25rem;
+    padding: 0.85rem 1.15rem;
     box-shadow: var(--card-shadow);
-    margin-bottom: 1.5rem;
+    margin-bottom: 1.35rem;
+}
+
+.control-bar-grid {
+    display: grid;
+    grid-template-columns: minmax(260px, 2.5fr) minmax(160px, 1.2fr) minmax(160px, 1.2fr) minmax(210px, 1.3fr) minmax(140px, 1.1fr);
+    gap: 0.85rem;
+    align-items: center;
+}
+
+.control-item {
+    width: 100%;
+}
+
+.control-item .filter-select {
+    width: 100%;
 }
 
 .search-input-group {
     position: relative;
-    flex: 1;
-    min-width: 250px;
+    width: 100%;
 }
 
 .search-icon {
@@ -340,7 +382,9 @@ main {
 
 /* Segmented Status Filter Buttons */
 .status-pill-group {
-    display: inline-flex;
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
     background: var(--slate-100);
     padding: 0.25rem;
     border-radius: var(--radius-md);
@@ -348,15 +392,18 @@ main {
 }
 
 .status-pill-btn {
+    flex: 1;
     border: none;
     background: transparent;
-    padding: 0.35rem 0.85rem;
+    padding: 0.35rem 0.65rem;
     font-size: 0.8rem;
     font-weight: 600;
     color: var(--slate-600);
     border-radius: var(--radius-sm);
     cursor: pointer;
     transition: all var(--transition-fast);
+    text-align: center;
+    white-space: nowrap;
 }
 
 .status-pill-btn:hover {
@@ -369,13 +416,84 @@ main {
     box-shadow: 0 1px 3px rgba(15, 23, 42, 0.08);
 }
 
+/* Control Bar Breakpoints */
+@media (max-width: 1200px) {
+    .control-bar-grid {
+        grid-template-columns: 2fr 1fr 1fr;
+        gap: 0.75rem;
+    }
+    .status-control-item {
+        grid-column: span 2;
+    }
+}
+
+@media (max-width: 991px) {
+    .control-bar-grid {
+        grid-template-columns: 1fr 1fr;
+        gap: 0.75rem;
+    }
+    .search-control-item {
+        grid-column: span 2;
+    }
+    .status-control-item {
+        grid-column: span 1;
+    }
+}
+
+@media (max-width: 575px) {
+    .control-bar-grid {
+        grid-template-columns: 1fr;
+        gap: 0.65rem;
+    }
+    .search-control-item,
+    .status-control-item {
+        grid-column: span 1;
+    }
+}
+
 /* ==========================================================================
-   Opportunities Grid & Academic Cards
+   Opportunities Grid & Academic Cards (Responsive 3-col / 2-col / 1-col)
    ========================================================================== */
 .opportunities-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
-    gap: 1.25rem;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.35rem;
+}
+
+/* Medium screens: 768px to 1199px -> 2 cards per row */
+@media (max-width: 1199px) {
+    .opportunities-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1.15rem;
+    }
+}
+
+/* Mobile screens: under 768px -> 1 card per row */
+@media (max-width: 767px) {
+    .opportunities-grid {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+    }
+}
+
+/* When exactly 2 opportunities exist, distribute them in 2 equal columns without large empty area */
+.opportunities-grid.has-2-items,
+.opportunities-grid:has(> .opportunity-card:last-child:nth-child(2)) {
+    grid-template-columns: repeat(2, 1fr);
+}
+
+@media (max-width: 767px) {
+    .opportunities-grid.has-2-items,
+    .opportunities-grid:has(> .opportunity-card:last-child:nth-child(2)) {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* When only 1 opportunity exists, center it gracefully with a max-width */
+.opportunities-grid.has-1-item,
+.opportunities-grid:has(> .opportunity-card:only-child) {
+    grid-template-columns: minmax(auto, 680px);
+    justify-content: center;
 }
 
 .opportunity-card {
@@ -795,7 +913,7 @@ main {
 }
 
 @media (max-width: 576px) {
-    .portal-navbar .container-xl {
+    .portal-navbar .portal-container {
         flex-direction: row;
         justify-content: space-between;
         align-items: center;
@@ -818,6 +936,10 @@ main {
 }
 
 @media (max-width: 480px) {
+    .portal-container {
+        padding-left: 0.75rem;
+        padding-right: 0.75rem;
+    }
     .stats-grid {
         grid-template-columns: 1fr;
     }
