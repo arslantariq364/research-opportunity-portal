@@ -386,8 +386,8 @@ node tests/test_frontend_regression.mjs
 
 ## Demonstration Video
 
-- **Access Link:** [Watch Demonstration Video (Google Drive)](https://drive.google.com/file/d/1aWVgJVXlJTFXhRkzbPRr3_DodddXqjr1/view?usp=drive_link)
-- **Direct URL:** `https://drive.google.com/file/d/1aWVgJVXlJTFXhRkzbPRr3_DodddXqjr1/view?usp=drive_link`
+- **Access Link:** [Watch Demonstration Video (Google Drive)](https://drive.google.com/file/d/1_lKeNJoyDeKgqSqOXnfH6ZV1mJt6FsNM/view)
+- **Direct URL:** `https://drive.google.com/file/d/1_lKeNJoyDeKgqSqOXnfH6ZV1mJt6FsNM/view`
 - **Description:** Live demonstration walkthrough showcasing the running Flask backend server, Academic SaaS Dashboard UI, Create, Read, Update, Close, and Delete CRUD workflows, form validation, and Postman API test collection execution.
 ---
 

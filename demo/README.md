@@ -2,8 +2,8 @@
 
 ## Official Demonstration Video Link
 
-- **Google Drive Link:** [Watch Demonstration Video](https://drive.google.com/file/d/1aWVgJVXlJTFXhRkzbPRr3_DodddXqjr1/view?usp=drive_link)
-- **Direct URL:** `https://drive.google.com/file/d/1aWVgJVXlJTFXhRkzbPRr3_DodddXqjr1/view?usp=drive_link`
+- **Google Drive Link:** [Watch Demonstration Video](https://drive.google.com/file/d/1_lKeNJoyDeKgqSqOXnfH6ZV1mJt6FsNM/view)
+- **Direct URL:** `https://drive.google.com/file/d/1_lKeNJoyDeKgqSqOXnfH6ZV1mJt6FsNM/view`
 - **Duration:** Under 60 seconds (Compliant with university evaluation criteria)
 
 ---
