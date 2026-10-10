@@ -11,11 +11,8 @@ CREATE DATABASE IF NOT EXISTS research_portal
 
 USE research_portal;
 
--- Drop table if it exists to allow idempotent initialization
-DROP TABLE IF EXISTS research_opportunities;
-
--- Create research_opportunities table
-CREATE TABLE research_opportunities (
+-- Create research_opportunities table safely if it does not already exist
+CREATE TABLE IF NOT EXISTS research_opportunities (
     id INT AUTO_INCREMENT PRIMARY KEY,
     title VARCHAR(255) NOT NULL,
     description TEXT NOT NULL,

@@ -66,7 +66,11 @@ try {
     await send('Page.navigate', { url: 'http://127.0.0.1:5000/portal' });
 
     // Wait for initial load and data fetch
-    await new Promise(r => setTimeout(r, 2000));
+    for (let i = 0; i < 30; i++) {
+        const count = await evaluate(`document.querySelectorAll('.opportunity-card').length`);
+        if (count > 0) break;
+        await new Promise(r => setTimeout(r, 200));
+    }
 
     console.log("=" .repeat(70));
     console.log("PHASE 4: FULL-STACK FRONTEND REGRESSION AUDIT");
