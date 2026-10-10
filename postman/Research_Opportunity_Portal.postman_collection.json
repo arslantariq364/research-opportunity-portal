@@ -1,0 +1,519 @@
+{
+  "info": {
+    "_postman_id": "b73a48e1-92b7-4b77-8c65-685b8c38a101",
+    "name": "Research Opportunity Portal",
+    "description": "Comprehensive REST API test suite for the University Research Opportunity Portal (Phase 4). Covers full CRUD lifecycle, dynamic ID capturing, automated status code assertions, response body validations, status transitions, deletions, 404 verification, and error handling for invalid payloads.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://127.0.0.1:5000",
+      "type": "string"
+    },
+    {
+      "key": "opportunity_id",
+      "value": "",
+      "type": "string"
+    }
+  ],
+  "item": [
+    {
+      "name": "01. Create Opportunity 1",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"Status code is 201 Created\", function () {",
+              "    pm.response.to.have.status(201);",
+              "});",
+              "",
+              "pm.test(\"Response returns valid JSON with auto-generated ID\", function () {",
+              "    var jsonData = pm.response.json();",
+              "    pm.expect(jsonData).to.be.an(\"object\");",
+              "    pm.expect(jsonData).to.have.property(\"id\");",
+              "    pm.expect(jsonData.id).to.be.a(\"number\");",
+              "    pm.expect(jsonData.id).to.be.above(0);",
+              "    ",
+              "    // Capture generated ID into collection variable for downstream sequential requests",
+              "    pm.collectionVariables.set(\"opportunity_id\", jsonData.id);",
+              "    console.log(\"Captured opportunity_id: \" + jsonData.id);",
+              "});",
+              "",
+              "pm.test(\"Created Opportunity 1 contains accurate attributes\", function () {",
+              "    var jsonData = pm.response.json();",
+              "    pm.expect(jsonData.title).to.eql(\"Quantum Error Correction with Topological Codes\");",
+              "    pm.expect(jsonData.research_area).to.eql(\"Quantum Computing\");",
+              "    pm.expect(jsonData.faculty_name).to.eql(\"Dr. Ayesha Malik\");",
+              "    pm.expect(jsonData.department).to.eql(\"Computer Science\");",
+              "    pm.expect(jsonData.required_skills).to.eql(\"Python, Qiskit, Linear Algebra, Quantum Mechanics\");",
+              "    pm.expect(jsonData.available_positions).to.eql(2);",
+              "    pm.expect(jsonData.application_deadline).to.eql(\"2026-11-30\");",
+              "    pm.expect(jsonData.status).to.eql(\"Open\");",
+              "});"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"title\": \"Quantum Error Correction with Topological Codes\",\n  \"description\": \"Investigating fault-tolerant quantum memory, stabilizer circuits, and lattice surgery techniques on superconducting qubit processors.\",\n  \"research_area\": \"Quantum Computing\",\n  \"faculty_name\": \"Dr. Ayesha Malik\",\n  \"department\": \"Computer Science\",\n  \"required_skills\": \"Python, Qiskit, Linear Algebra, Quantum Mechanics\",\n  \"available_positions\": 2,\n  \"application_deadline\": \"2026-11-30\",\n  \"status\": \"Open\"\n}"
+        },
+        "url": {
+          "raw": "{{baseUrl}}/api/opportunities",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "opportunities"
+          ]
+        },
+        "description": "Creates a first test research opportunity in Computer Science. Automatically extracts and stores the generated record ID in the collection variable 'opportunity_id'."
+      },
+      "response": []
+    },
+    {
+      "name": "02. Create Opportunity 2",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"Status code is 201 Created\", function () {",
+              "    pm.response.to.have.status(201);",
+              "});",
+              "",
+              "pm.test(\"Created Opportunity 2 contains distinct department and faculty\", function () {",
+              "    var jsonData = pm.response.json();",
+              "    pm.expect(jsonData).to.have.property(\"id\");",
+              "    pm.expect(jsonData.id).to.be.above(0);",
+              "    pm.expect(jsonData.title).to.eql(\"Autonomous Drone Swarm Navigation in GPS-Denied Environments\");",
+              "    pm.expect(jsonData.research_area).to.eql(\"Robotics & Autonomous Systems\");",
+              "    pm.expect(jsonData.faculty_name).to.eql(\"Dr. Kamran Zafar\");",
+              "    pm.expect(jsonData.department).to.eql(\"Electrical Engineering\");",
+              "    pm.expect(jsonData.available_positions).to.eql(3);",
+              "    pm.expect(jsonData.status).to.eql(\"Open\");",
+              "});"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"title\": \"Autonomous Drone Swarm Navigation in GPS-Denied Environments\",\n  \"description\": \"Developing distributed visual-inertial SLAM and multi-agent reinforcement learning policies for micro-aerial vehicles navigating subterranean tunnels.\",\n  \"research_area\": \"Robotics & Autonomous Systems\",\n  \"faculty_name\": \"Dr. Kamran Zafar\",\n  \"department\": \"Electrical Engineering\",\n  \"required_skills\": \"C++, ROS2, PyTorch, Control Systems, Kalman Filtering\",\n  \"available_positions\": 3,\n  \"application_deadline\": \"2026-12-15\",\n  \"status\": \"Open\"\n}"
+        },
+        "url": {
+          "raw": "{{baseUrl}}/api/opportunities",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "opportunities"
+          ]
+        },
+        "description": "Creates a second distinct opportunity in Electrical Engineering with different research area, faculty lead, and technical prerequisites."
+      },
+      "response": []
+    },
+    {
+      "name": "03. Create Opportunity 3",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"Status code is 201 Created\", function () {",
+              "    pm.response.to.have.status(201);",
+              "});",
+              "",
+              "pm.test(\"Created Opportunity 3 contains biomedical data\", function () {",
+              "    var jsonData = pm.response.json();",
+              "    pm.expect(jsonData).to.have.property(\"id\");",
+              "    pm.expect(jsonData.id).to.be.above(0);",
+              "    pm.expect(jsonData.title).to.eql(\"Multi-Omics Graph Neural Networks for Rare Disease Biomarkers\");",
+              "    pm.expect(jsonData.research_area).to.eql(\"Bioinformatics & Computational Biology\");",
+              "    pm.expect(jsonData.faculty_name).to.eql(\"Dr. Zainab Hashmi\");",
+              "    pm.expect(jsonData.department).to.eql(\"Biomedical Engineering\");",
+              "    pm.expect(jsonData.available_positions).to.eql(1);",
+              "    pm.expect(jsonData.status).to.eql(\"Open\");",
+              "});"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"title\": \"Multi-Omics Graph Neural Networks for Rare Disease Biomarkers\",\n  \"description\": \"Constructing heterogeneous biological knowledge graphs integrating transcriptomics and epigenomics to identify therapeutic drug targets for rare disorders.\",\n  \"research_area\": \"Bioinformatics & Computational Biology\",\n  \"faculty_name\": \"Dr. Zainab Hashmi\",\n  \"department\": \"Biomedical Engineering\",\n  \"required_skills\": \"Python, BioPython, PyTorch Geometric, NetworkX\",\n  \"available_positions\": 1,\n  \"application_deadline\": \"2026-10-31\",\n  \"status\": \"Open\"\n}"
+        },
+        "url": {
+          "raw": "{{baseUrl}}/api/opportunities",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "opportunities"
+          ]
+        },
+        "description": "Creates a third distinct opportunity in Biomedical Engineering with bioinformatics focus."
+      },
+      "response": []
+    },
+    {
+      "name": "04. Retrieve All Opportunities",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"Status code is 200 OK\", function () {",
+              "    pm.response.to.have.status(200);",
+              "});",
+              "",
+              "pm.test(\"Response is a non-empty array of opportunity objects\", function () {",
+              "    var jsonData = pm.response.json();",
+              "    pm.expect(jsonData).to.be.an(\"array\");",
+              "    pm.expect(jsonData.length).to.be.at.least(3);",
+              "});",
+              "",
+              "pm.test(\"Stored opportunities array includes captured opportunity_id\", function () {",
+              "    var jsonData = pm.response.json();",
+              "    var targetId = pm.collectionVariables.get(\"opportunity_id\");",
+              "    pm.expect(targetId, \"Target opportunity_id variable must be set\").to.not.be.empty;",
+              "    ",
+              "    var found = jsonData.find(function(item) {",
+              "        return item.id == targetId;",
+              "    });",
+              "    pm.expect(found, \"Captured opportunity must be present in GET all list\").to.not.be.undefined;",
+              "    pm.expect(found.title).to.eql(\"Quantum Error Correction with Topological Codes\");",
+              "});"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/api/opportunities",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "opportunities"
+          ]
+        },
+        "description": "Fetches all opportunities from the database and confirms the presence of the freshly created opportunities."
+      },
+      "response": []
+    },
+    {
+      "name": "05. Retrieve Opportunity by ID",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"Status code is 200 OK\", function () {",
+              "    pm.response.to.have.status(200);",
+              "});",
+              "",
+              "pm.test(\"Retrieved opportunity matches captured opportunity_id\", function () {",
+              "    var jsonData = pm.response.json();",
+              "    var targetId = pm.collectionVariables.get(\"opportunity_id\");",
+              "    ",
+              "    pm.expect(jsonData.id).to.eql(parseInt(targetId, 10));",
+              "    pm.expect(jsonData.title).to.eql(\"Quantum Error Correction with Topological Codes\");",
+              "    pm.expect(jsonData.faculty_name).to.eql(\"Dr. Ayesha Malik\");",
+              "    pm.expect(jsonData.status).to.eql(\"Open\");",
+              "});"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/api/opportunities/{{opportunity_id}}",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "opportunities",
+            "{{opportunity_id}}"
+          ]
+        },
+        "description": "Retrieves the specific opportunity identified by collection variable {{opportunity_id}}."
+      },
+      "response": []
+    },
+    {
+      "name": "06. Update Opportunity",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"Status code is 200 OK\", function () {",
+              "    pm.response.to.have.status(200);",
+              "});",
+              "",
+              "pm.test(\"Opportunity fields updated successfully\", function () {",
+              "    var jsonData = pm.response.json();",
+              "    var targetId = pm.collectionVariables.get(\"opportunity_id\");",
+              "    ",
+              "    pm.expect(jsonData.id).to.eql(parseInt(targetId, 10));",
+              "    pm.expect(jsonData.title).to.eql(\"Quantum Error Correction & Fault-Tolerant Architectures\");",
+              "    pm.expect(jsonData.available_positions).to.eql(4);",
+              "    pm.expect(jsonData.description).to.include(\"Expanded scope\");",
+              "    // Verify unedited fields remain preserved",
+              "    pm.expect(jsonData.faculty_name).to.eql(\"Dr. Ayesha Malik\");",
+              "    pm.expect(jsonData.status).to.eql(\"Open\");",
+              "});"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "PUT",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"title\": \"Quantum Error Correction & Fault-Tolerant Architectures\",\n  \"available_positions\": 4,\n  \"description\": \"Expanded scope: investigating fault-tolerant quantum memory, lattice surgery, and neural network syndrome decoders.\"\n}"
+        },
+        "url": {
+          "raw": "{{baseUrl}}/api/opportunities/{{opportunity_id}}",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "opportunities",
+            "{{opportunity_id}}"
+          ]
+        },
+        "description": "Performs partial update on title, available_positions, and description for the captured opportunity_id."
+      },
+      "response": []
+    },
+    {
+      "name": "07. Close Opportunity",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"Status code is 200 OK\", function () {",
+              "    pm.response.to.have.status(200);",
+              "});",
+              "",
+              "pm.test(\"Opportunity status updated to Closed\", function () {",
+              "    var jsonData = pm.response.json();",
+              "    var targetId = pm.collectionVariables.get(\"opportunity_id\");",
+              "    ",
+              "    pm.expect(jsonData.id).to.eql(parseInt(targetId, 10));",
+              "    pm.expect(jsonData.status).to.eql(\"Closed\");",
+              "    pm.expect(jsonData.title).to.eql(\"Quantum Error Correction & Fault-Tolerant Architectures\");",
+              "});"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "PUT",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"status\": \"Closed\"\n}"
+        },
+        "url": {
+          "raw": "{{baseUrl}}/api/opportunities/{{opportunity_id}}",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "opportunities",
+            "{{opportunity_id}}"
+          ]
+        },
+        "description": "Sets status = 'Closed' for the captured opportunity, verifying status transitions."
+      },
+      "response": []
+    },
+    {
+      "name": "08. Delete Opportunity",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"Status code is 200 OK\", function () {",
+              "    pm.response.to.have.status(200);",
+              "});",
+              "",
+              "pm.test(\"Delete confirmation message returned\", function () {",
+              "    var jsonData = pm.response.json();",
+              "    pm.expect(jsonData).to.have.property(\"message\");",
+              "    pm.expect(jsonData.message).to.eql(\"Research opportunity deleted successfully\");",
+              "});"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "DELETE",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/api/opportunities/{{opportunity_id}}",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "opportunities",
+            "{{opportunity_id}}"
+          ]
+        },
+        "description": "Deletes the opportunity record associated with {{opportunity_id}}."
+      },
+      "response": []
+    },
+    {
+      "name": "09. Retrieve Deleted Opportunity",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"Status code is 404 Not Found\", function () {",
+              "    pm.response.to.have.status(404);",
+              "});",
+              "",
+              "pm.test(\"Error response confirms opportunity no longer exists\", function () {",
+              "    var jsonData = pm.response.json();",
+              "    pm.expect(jsonData).to.have.property(\"error\");",
+              "    pm.expect(jsonData.error).to.eql(\"Research opportunity not found\");",
+              "});"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/api/opportunities/{{opportunity_id}}",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "opportunities",
+            "{{opportunity_id}}"
+          ]
+        },
+        "description": "Attempts to fetch the deleted opportunity by {{opportunity_id}}, verifying proper 404 Not Found error response."
+      },
+      "response": []
+    },
+    {
+      "name": "10. Invalid Data Request",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"Status code is 400 Bad Request\", function () {",
+              "    pm.response.to.have.status(400);",
+              "});",
+              "",
+              "pm.test(\"Validation error structure and messages verified\", function () {",
+              "    var jsonData = pm.response.json();",
+              "    pm.expect(jsonData).to.have.property(\"error\");",
+              "    pm.expect(jsonData.error).to.eql(\"Validation failed\");",
+              "    pm.expect(jsonData).to.have.property(\"messages\");",
+              "    pm.expect(jsonData.messages).to.be.an(\"object\");",
+              "});"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"title\": \"   \",\n  \"description\": \"Payload missing required fields like research_area, faculty_name, and has negative positions\",\n  \"available_positions\": -3,\n  \"application_deadline\": \"invalid-date\"\n}"
+        },
+        "url": {
+          "raw": "{{baseUrl}}/api/opportunities",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "opportunities"
+          ]
+        },
+        "description": "Sends invalid and incomplete payload to verify request rejection with 400 Bad Request and validation error messages."
+      },
+      "response": []
+    }
+  ]
+}

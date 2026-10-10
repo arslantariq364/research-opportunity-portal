@@ -358,3 +358,69 @@ def test_delete_nonexistent_returns_404(client):
     res = client.delete('/api/opportunities/999999')
     assert res.status_code == 404
     assert res.get_json()['error'] == "Research opportunity not found"
+
+
+def test_put_empty_payload_returns_400(client):
+    """Verify PUT with empty JSON payload returns 400 Bad Request."""
+    create_res = client.post('/api/opportunities', json=SAMPLE_VALID_OPPORTUNITY)
+    created_id = create_res.get_json()['id']
+
+    res = client.put(f'/api/opportunities/{created_id}', json={})
+    assert res.status_code == 400
+    data = res.get_json()
+    assert "error" in data or "payload" in data.get("messages", {})
+
+
+def test_put_invalid_positions_returns_400(client):
+    """Verify PUT with negative or zero positions returns 400."""
+    create_res = client.post('/api/opportunities', json=SAMPLE_VALID_OPPORTUNITY)
+    created_id = create_res.get_json()['id']
+
+    res = client.put(f'/api/opportunities/{created_id}', json={"available_positions": -1})
+    assert res.status_code == 400
+    assert "available_positions" in res.get_json()['messages']
+
+
+def test_put_invalid_deadline_returns_400(client):
+    """Verify PUT with malformed date format returns 400."""
+    create_res = client.post('/api/opportunities', json=SAMPLE_VALID_OPPORTUNITY)
+    created_id = create_res.get_json()['id']
+
+    res = client.put(f'/api/opportunities/{created_id}', json={"application_deadline": "2026/12/31"})
+    assert res.status_code == 400
+    assert "application_deadline" in res.get_json()['messages']
+
+
+def test_put_invalid_status_returns_400(client):
+    """Verify PUT with invalid status returns 400."""
+    create_res = client.post('/api/opportunities', json=SAMPLE_VALID_OPPORTUNITY)
+    created_id = create_res.get_json()['id']
+
+    res = client.put(f'/api/opportunities/{created_id}', json={"status": "Archived"})
+    assert res.status_code == 400
+    assert "status" in res.get_json()['messages']
+
+
+def test_close_and_reopen_status_toggle(client):
+    """Verify full status lifecycle: Open -> Closed -> Open."""
+    create_res = client.post('/api/opportunities', json=SAMPLE_VALID_OPPORTUNITY)
+    created_id = create_res.get_json()['id']
+    assert create_res.get_json()['status'] == "Open"
+
+    # Close opportunity
+    close_res = client.put(f'/api/opportunities/{created_id}', json={"status": "Closed"})
+    assert close_res.status_code == 200
+    assert close_res.get_json()['status'] == "Closed"
+
+    # Re-open opportunity
+    reopen_res = client.put(f'/api/opportunities/{created_id}', json={"status": "Open"})
+    assert reopen_res.status_code == 200
+    assert reopen_res.get_json()['status'] == "Open"
+
+
+def test_delete_invalid_string_id_404(client):
+    """Verify DELETE with non-integer string ID returns 404."""
+    res = client.delete('/api/opportunities/invalid-id-string')
+    assert res.status_code == 404
+    assert res.get_json()['error'] == "Research opportunity not found"
+

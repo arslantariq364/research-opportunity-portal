@@ -55,10 +55,32 @@ function handleUrlHash() {
 
 function initBootstrapModals() {
     const createModalEl = document.getElementById('createOpportunityModal');
-    if (createModalEl) createModalInstance = new bootstrap.Modal(createModalEl);
+    if (createModalEl) {
+        createModalInstance = new bootstrap.Modal(createModalEl);
+        createModalEl.addEventListener('hidden.bs.modal', () => {
+            const form = document.getElementById('create-opportunity-form');
+            if (form) {
+                form.reset();
+                form.classList.remove('was-validated');
+            }
+            const err = document.getElementById('create-form-error');
+            if (err) err.classList.add('d-none');
+        });
+    }
 
     const editModalEl = document.getElementById('editOpportunityModal');
-    if (editModalEl) editModalInstance = new bootstrap.Modal(editModalEl);
+    if (editModalEl) {
+        editModalInstance = new bootstrap.Modal(editModalEl);
+        editModalEl.addEventListener('hidden.bs.modal', () => {
+            const form = document.getElementById('edit-opportunity-form');
+            if (form) {
+                form.reset();
+                form.classList.remove('was-validated');
+            }
+            const err = document.getElementById('edit-form-error');
+            if (err) err.classList.add('d-none');
+        });
+    }
 
     const viewModalEl = document.getElementById('viewOpportunityModal');
     if (viewModalEl) viewModalInstance = new bootstrap.Modal(viewModalEl);
@@ -538,6 +560,7 @@ async function handleCreateSubmit(e) {
     // Client-side pre-validation
     const clientErrors = validateOpportunityForm(payload);
     if (clientErrors.length > 0) {
+        form.classList.add('was-validated');
         displayFormError(errorBox, clientErrors.join('<br>'));
         return;
     }
@@ -667,6 +690,7 @@ async function handleEditSubmit(e) {
 
     const clientErrors = validateOpportunityForm(payload);
     if (clientErrors.length > 0) {
+        form.classList.add('was-validated');
         displayFormError(errorBox, clientErrors.join('<br>'));
         return;
     }
