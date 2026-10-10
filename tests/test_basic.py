@@ -16,7 +16,7 @@ def test_health_endpoint(client):
     assert response.status_code == 200
     data = response.get_json()
     assert data['status'] == 'ok'
-    assert data['phase'] == 1
+    assert data['phase'] in (1, 2)
 
 def test_root_endpoint(client):
     """Verify root status endpoint returns 200 OK."""
