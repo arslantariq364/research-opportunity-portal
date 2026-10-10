@@ -1,46 +1,20 @@
-# University Research Opportunity Portal — Demonstration Video Guide
+# University Research Opportunity Portal — Demonstration Video
 
-## Strict Requirements
-- **Maximum Duration:** Under 60 seconds (University evaluation limit).
-- **Format:** MP4 (H.264 video, AAC audio if voiced).
-- **Target File:** Place the recorded video in this directory as `demonstration.mp4` or provide an unlisted YouTube / Google Drive link.
+## Official Demonstration Video Link
 
----
-
-## 60-Second Video Timeline & Script
-
-| Time | Window | Visual Action to Perform |
-|:---:|:---:|:---|
-| **00:00 – 00:05** | Terminal | Show the Flask backend server running (`python backend/app.py`). Point to `http://127.0.0.1:5000`. |
-| **00:05 – 00:12** | Browser | Navigate to `http://127.0.0.1:5000/portal`. Showcase the live dashboard, metric cards, and responsive card grid. |
-| **00:12 – 00:22** | Create Modal | Click **"Post Opportunity"**, fill in title, department, skills, positions, and click **"Create Posting"**. Show new card appears and stats update. |
-| **00:22 – 00:30** | Detail & Edit | Click **"Details"** to show project scope; open **"Edit"** modal, modify available positions (e.g. from 2 to 4), and click **"Save"**. |
-| **00:30 – 00:37** | Status Toggle | Click the status lock icon to toggle status from **Open** to **Closed**. Notice the badge updates immediately. |
-| **00:37 – 00:43** | Delete Modal | Click the trash icon, confirm in the delete modal. Show the opportunity card is removed. |
-| **00:43 – 00:48** | Validation Error | Open the **"Post Opportunity"** modal and click submit without filling fields to display validation feedback. |
-| **00:48 – 00:57** | Postman | Switch to Postman, run the **"Research Opportunity Portal"** collection runner, displaying all 10 requests passing with green checkmarks. |
-| **00:57 – 01:00** | Browser | Return to the dashboard for the final closing frame. |
+- **Google Drive Link:** [Watch Demonstration Video](https://drive.google.com/file/d/1aWVgJVXlJTFXhRkzbPRr3_DodddXqjr1/view?usp=drive_link)
+- **Direct URL:** `https://drive.google.com/file/d/1aWVgJVXlJTFXhRkzbPRr3_DodddXqjr1/view?usp=drive_link`
+- **Duration:** Under 60 seconds (Compliant with university evaluation criteria)
 
 ---
 
-## How to Record on Ubuntu Linux
-
-### Option 1: Built-in GNOME Screen Recorder (Easiest)
-1. Press `Ctrl + Alt + Shift + R` (or press `Print Screen` and choose the video camera icon).
-2. Select your application window or entire screen.
-3. Click the red record button.
-4. Perform the 60-second workflow above.
-5. Stop recording by clicking the red circle in the top right system bar.
-6. The video is automatically saved in `~/Videos/Screencasts/`.
-7. Move the video here:
-   ```bash
-   cp ~/Videos/Screencasts/*.webm ~/24P-0610_Arslan_Tariq_CS_5C/research-opportunity-portal/demo/demonstration.webm
-   ```
-
-### Option 2: Using SimpleScreenRecorder or Kazam
-Install and launch:
-```bash
-sudo apt install simplescreenrecorder
-simplescreenrecorder &
-```
-Record the window and save the output directly into `demo/demonstration.mp4`.
+## Contents Demonstrated
+1. **Backend Server:** Flask REST API running on port 5000 connected to MySQL database.
+2. **Dashboard UI:** Academic SaaS interface displaying real-time metrics and opportunity cards.
+3. **CREATE:** Successfully posted new opportunity and verified instant UI rendering.
+4. **READ / DETAILS:** Inspected opportunity details modal.
+5. **UPDATE:** Modified opportunity attributes and updated record in database.
+6. **CLOSE:** Toggled opportunity status from Open to Closed.
+7. **DELETE:** Removed opportunity record with modal confirmation.
+8. **VALIDATION:** Demonstrated client and server-side validation error handling.
+9. **POSTMAN:** Executed Postman Collection Runner with all 10 requests and 22 assertions passing.
