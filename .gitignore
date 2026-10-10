@@ -1,0 +1,45 @@
+# ========================================================
+# Git Ignore Configuration
+# University Research Opportunity Portal
+# ========================================================
+
+# Environment Variables & Secrets
+.env
+.env.local
+.env.*.local
+
+# Virtual Environments
+.venv/
+venv/
+ENV/
+env/
+
+# Byte-compiled / cache files
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+
+# Pytest & Test coverage
+.pytest_cache/
+.coverage
+htmlcov/
+
+# IDE & Editor Temporary Files
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+.DS_Store
+
+# Local Database Files & Dumps
+*.sqlite3
+*.db
+*.sql.dump
+
+# Temporary & Log files
+*.log
+*.tmp
+temp/
+tmp/
