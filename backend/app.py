@@ -1,6 +1,6 @@
 """
 Application factory and entry point for University Research Opportunity Portal.
-Phase 2: Complete REST API Implementation.
+Phase 2/3: Complete REST API and Academic SaaS Frontend Delivery.
 """
 import os
 import sys
@@ -27,7 +27,13 @@ from flask import Flask, jsonify, send_from_directory
 
 def create_app(config_class=Config):
     """Factory function to initialize and configure the Flask application."""
-    app = Flask(__name__)
+    frontend_dir = os.path.join(PROJECT_ROOT, 'frontend')
+
+    app = Flask(
+        __name__,
+        static_folder=frontend_dir,
+        static_url_path='/static'
+    )
     app.config.from_object(config_class)
 
     # Initialize extensions
@@ -38,22 +44,28 @@ def create_app(config_class=Config):
 
     @app.route('/', methods=['GET'])
     def root():
-        """Root API status endpoint for Phase 2 verification."""
+        """Root API status endpoint."""
         return jsonify({
             "project": "University Research Opportunity Portal",
-            "phase": "Phase 2: Complete REST API Implementation",
-            "status": "ready"
+            "phase": "Academic Research Dashboard (Phase 3)",
+            "status": "ready",
+            "portal_url": "/portal"
         }), 200
 
     @app.route('/portal', methods=['GET'])
     def portal():
-        """Serve frontend scaffolding interface."""
-        return send_from_directory(os.path.join(PROJECT_ROOT, 'frontend'), 'index.html')
+        """Serve the academic research dashboard frontend interface."""
+        return send_from_directory(frontend_dir, 'index.html')
 
-    @app.route('/frontend/<path:filename>', methods=['GET'])
-    def frontend_assets(filename):
-        """Serve frontend static assets (CSS, JS)."""
-        return send_from_directory(os.path.join(PROJECT_ROOT, 'frontend'), filename)
+    @app.route('/css/<path:filename>', methods=['GET'])
+    def serve_css(filename):
+        """Serve CSS assets."""
+        return send_from_directory(os.path.join(frontend_dir, 'css'), filename)
+
+    @app.route('/js/<path:filename>', methods=['GET'])
+    def serve_js(filename):
+        """Serve JavaScript assets."""
+        return send_from_directory(os.path.join(frontend_dir, 'js'), filename)
 
     return app
 
