@@ -388,22 +388,7 @@ node tests/test_frontend_regression.mjs
 
 - **Status:** Ready for recording / Submission attachment
 - **Target Duration:** Under 60 seconds (Strict university requirement)
-- **File Location:** `demo/demonstration.mp4` *(or accessible university submission link)*
-
-### Recommended 60-Second Video Timeline
-
-| Timestamp | Screen Displayed | Action Performed |
-| :---: | :--- | :--- |
-| **00:00 – 00:05** | Terminal | Show Flask backend server running (`python backend/app.py`). |
-| **00:05 – 00:12** | Browser (`/portal`) | Showcase Academic SaaS Dashboard, live metric cards, and responsive layout. |
-| **00:12 – 00:22** | Create Modal | Click "Post Opportunity", fill form, click "Create Posting" (Card appears, stats update). |
-| **00:22 – 00:30** | Detail & Edit | Click "Details" modal; open "Edit" modal, increase available positions to 4, save. |
-| **00:30 – 00:37** | Status Toggle | Click status lock icon to toggle status from **Open** to **Closed** (Badge updates). |
-| **00:37 – 00:43** | Delete Modal | Click trash icon on opportunity, confirm in modal (Opportunity is removed). |
-| **00:43 – 00:48** | Form Validation | Open Create modal and submit empty form to show validation error styling. |
-| **00:48 – 00:57** | Postman | Run Postman Collection Runner showing 10 requests passing with green checkmarks. |
-| **00:57 – 01:00** | Terminal / Browser | Final wrap-up showing clean application state. |
-
+- **File Location:** `demo/demonstration.mp4`
 ---
 
 ## Author
